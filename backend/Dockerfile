@@ -10,6 +10,9 @@ FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app
 COPY --from=builder /app/target/*.jar app.jar
 
+# 设置环境变量 - Render需要这个来提前知道端口
+ENV PORT=8080
+
 # 暴露端口
 EXPOSE 8080
 
