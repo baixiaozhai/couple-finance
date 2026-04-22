@@ -2,9 +2,12 @@ import axios from 'axios'
 import { ElMessage } from 'element-plus'
 import { useUserStore } from '../stores/user'
 
+// API基础URL - 生产环境使用完整URL
+const API_BASE_URL = import.meta.env.VITE_API_URL || '/api'
+
 // 创建axios实例
 const request = axios.create({
-  baseURL: '/api',
+  baseURL: API_BASE_URL,
   timeout: 10000
 })
 
