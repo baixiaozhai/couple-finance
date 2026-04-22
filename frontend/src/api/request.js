@@ -6,6 +6,8 @@ import { useUserStore } from '../stores/user'
 // 注意：这里必须使用完整的后端地址
 const API_BASE_URL = 'https://couple-finance-api-mfys.onrender.com/api'
 
+console.log('API Base URL:', API_BASE_URL)
+
 // 创建axios实例
 const request = axios.create({
   baseURL: API_BASE_URL,

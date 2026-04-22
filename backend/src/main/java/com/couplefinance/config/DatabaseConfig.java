@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Profile;
 import javax.sql.DataSource;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 /**
  * 数据库配置 - 处理Render的数据库URL格式
@@ -18,26 +20,29 @@ public class DatabaseConfig {
     @Value("${DATABASE_URL:}")
     private String databaseUrl;
 
-    @Value("${SPRING_DATASOURCE_USERNAME:}")
-    private String username;
-
-    @Value("${SPRING_DATASOURCE_PASSWORD:}")
-    private String password;
-
     @Bean
-    public DataSource dataSource() {
+    public DataSource dataSource() throws URISyntaxException {
         HikariConfig config = new HikariConfig();
         
         // Render 提供的 URL 格式: postgresql://user:pass@host:port/db
-        // 需要转换为: jdbc:postgresql://host:port/db
-        String jdbcUrl = databaseUrl;
+        // 需要解析并转换为 JDBC 格式
         if (databaseUrl != null && databaseUrl.startsWith("postgresql://")) {
-            jdbcUrl = "jdbc:" + databaseUrl;
+            URI dbUri = new URI(databaseUrl);
+            String host = dbUri.getHost();
+            int port = dbUri.getPort() > 0 ? dbUri.getPort() : 5432;
+            String path = dbUri.getPath();
+            String userInfo = dbUri.getUserInfo();
+            
+            String username = userInfo != null ? userInfo.split(":")[0] : "";
+            String password = userInfo != null && userInfo.contains(":") ? userInfo.split(":")[1] : "";
+            
+            String jdbcUrl = String.format("jdbc:postgresql://%s:%d%s", host, port, path);
+            
+            config.setJdbcUrl(jdbcUrl);
+            config.setUsername(username);
+            config.setPassword(password);
         }
         
-        config.setJdbcUrl(jdbcUrl);
-        config.setUsername(username);
-        config.setPassword(password);
         config.setDriverClassName("org.postgresql.Driver");
         
         // 连接池配置
