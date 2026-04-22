@@ -8,6 +8,7 @@ services:
     runtime: docker
     plan: free
     dockerfilePath: ./backend/Dockerfile
+    port: 8080
     envVars:
       - key: SPRING_PROFILES_ACTIVE
         value: prod
