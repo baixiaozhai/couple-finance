@@ -1,8 +1,8 @@
 # 构建阶段
 FROM maven:3.9-eclipse-temurin-17-alpine AS builder
 WORKDIR /app
-COPY pom.xml .
-COPY src ./src
+COPY backend/pom.xml .
+COPY backend/src ./src
 RUN mvn clean package -DskipTests
 
 # 运行阶段
