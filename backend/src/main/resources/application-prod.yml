@@ -1,9 +1,14 @@
 # 生产环境配置（Render部署用）
 
 server:
-  port: ${SERVER_PORT:8080}
+  # 【修改1】使用 PORT 环境变量，兼容 Render 平台端口绑定
+  port: ${PORT:8080}
 
 spring:
+  # 【修改2】启用懒加载，加快启动速度
+  main:
+    lazy-initialization: true
+  
   datasource:
     url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/couple_finance}
     username: ${SPRING_DATASOURCE_USERNAME:couple_finance}
@@ -14,9 +19,11 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: false
+    # 【修改3】关闭 open-in-view，减少启动负担
+    open-in-view: false
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+        # 【修改4】删除 dialect 配置（Hibernate 6 会自动检测）
         format_sql: false
 
 # JWT配置
