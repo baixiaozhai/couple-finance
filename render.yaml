@@ -27,7 +27,7 @@ services:
         generateValue: true
       - key: SERVER_PORT
         value: 8080
-    healthCheckPath: /api/auth/me
+    healthCheckPath: /api/health
 
   # 前端服务（使用Node.js托管）
   - type: web
