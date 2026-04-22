@@ -15,8 +15,6 @@ services:
         fromDatabase:
           name: couple-finance-db
           property: connectionString
-      - key: SPRING_DATASOURCE_URL
-        value: jdbc:${DATABASE_URL}
       - key: SPRING_DATASOURCE_USERNAME
         fromDatabase:
           name: couple-finance-db
