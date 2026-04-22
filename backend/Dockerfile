@@ -16,5 +16,5 @@ ENV PORT=8080
 # 暴露端口
 EXPOSE 8080
 
-# 启动命令
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# 启动命令（优化JVM参数加快启动）
+ENTRYPOINT ["java", "-Xmx256m", "-Xms128m", "-jar", "app.jar"]

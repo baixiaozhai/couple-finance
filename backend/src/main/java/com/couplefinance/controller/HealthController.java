@@ -16,11 +16,9 @@ import java.util.Map;
 public class HealthController {
 
     @GetMapping
-    public ResponseEntity<Map<String, Object>> health() {
-        Map<String, Object> response = new HashMap<>();
-        response.put("status", "UP");
-        response.put("service", "couple-finance-api");
-        response.put("timestamp", System.currentTimeMillis());
-        return ResponseEntity.ok(response);
+    public Map<String, String> health() {
+        Map<String, String> response = new HashMap<>();
+        response.put("status", "ok");
+        return response;
     }
 }

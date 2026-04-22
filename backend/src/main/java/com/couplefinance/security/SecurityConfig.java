@@ -45,6 +45,7 @@ public class SecurityConfig {
                 // 公开接口
                 .requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers("/api/test/**").permitAll()
+                .requestMatchers("/api/health").permitAll()
                 // 其他接口需要认证
                 .anyRequest().authenticated()
             )
