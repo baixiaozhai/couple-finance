@@ -3,7 +3,7 @@ import { ElMessage } from 'element-plus'
 import { useUserStore } from '../stores/user'
 
 // API基础URL - 生产环境使用完整URL
-const API_BASE_URL = import.meta.env.VITE_API_URL || '/api'
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://couple-finance-api-mfys.onrender.com/api'
 
 // 创建axios实例
 const request = axios.create({
